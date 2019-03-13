@@ -1,23 +1,18 @@
 version: '3.7'
 services:
   web:
-    image: nginx
-    container_name: 'nginx-custom'
+    build: 
+      dockerfile: 'Dockerfile'
+      context: './bin/web/'
+    container_name: 'application'
     volumes: 
-      - './etc/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+      - './bin/web/etc/nginx/default.conf:/etc/nginx/conf.d/default.conf'
       - './www/:/var/www/html'
     ports: 
       - '80:80'
     restart: always
     depends_on:
-      - php
       - mysqldb  
-  php:
-    image: php:7.2-fpm
-    container_name: 'php7.2-fpm-custom'  
-    restart: always
-    volumes: 
-      - './www/:/var/www/html'
   mysqldb:
     image: mysql:5.7
     container_name: mysql
