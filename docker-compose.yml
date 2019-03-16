@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  web:
+  application:
     build: 
       dockerfile: 'Dockerfile'
       context: './bin/application/'
@@ -14,7 +14,7 @@ services:
       - '80:80'
     restart: always
     depends_on:
-      - mysqldb  
+      - mysqldb
   mysqldb:
     image: mysql:5.7
     container_name: mysql
@@ -27,7 +27,7 @@ services:
     ports: 
       - '3306:3306'
     volumes:
-      - '/var/lib/mysql'
+      - 'mysql_data:/var/lib/mysql'
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
@@ -39,3 +39,5 @@ services:
       - PMA_HOST=mysqldb
     depends_on: 
       - mysqldb
+volumes:
+  mysql_data:
