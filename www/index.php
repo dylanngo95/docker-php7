@@ -1,2 +1,2 @@
 <?php
-  echo 'xin chao 500 anh em';
+  echo 'Hello world with PHP';
